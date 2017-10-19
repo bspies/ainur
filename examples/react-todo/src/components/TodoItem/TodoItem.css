@@ -1,0 +1,23 @@
+.close {
+  float: right;
+}
+
+.close:hover {
+    color:  #f44336;
+}
+
+.check {
+  display: inline-block;
+  width: 20px;
+}
+
+.done {
+  background: #888;
+  color: #fff;
+  text-decoration: line-through;
+}
+
+/* override list-group-item:hover */
+.done:hover {
+  text-decoration: line-through;
+}

@@ -1,0 +1,18 @@
+{
+    "source": {
+        "level": "es6",
+        "excludes": "__tests__"
+    },
+    "output": {
+        "dir": "./dist",
+        "bundles": {
+            "main": ["./src"]
+        },
+        "html": []
+    },
+    "targets": {
+        "browsers": ["ie11", "chrome", "firefox"],
+        "node": "current"
+    }, 
+    "features": ["react", "angular", "bootstrap"]
+}

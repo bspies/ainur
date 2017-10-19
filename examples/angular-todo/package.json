@@ -1,0 +1,15 @@
+{
+  "name": "angular-todo",
+  "version": "1.0.0",
+  "description": "Example Angular application, built with Ainur",
+  "scripts": {
+    "build": "",
+    "start": ""
+  },
+  "keywords": [
+    "angular",
+    "ainur"
+  ],
+  "author": "Brennan Spies",
+  "license": "Apache-2.0"
+}

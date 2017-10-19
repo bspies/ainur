@@ -1,2 +1,6 @@
-# ainur
-Ainur is a project builder for front end JavaScript projects.
+# Ainur
+Ainur is a project management tool for front-end JavaScript projects.
+
+## Ainur Build
+
+## Ainur Project

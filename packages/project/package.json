@@ -1,0 +1,11 @@
+{
+  "name": "ainur-project",
+  "version": "0.1.0",
+  "description": "Project builder",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Brennan Spies",
+  "license": "Apache-2.0"
+}

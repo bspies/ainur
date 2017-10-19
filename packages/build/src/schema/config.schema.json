@@ -1,0 +1,75 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#", 
+    "definitions": {
+        "arrayOfStr": {
+            "type": "array",
+            "items": {"type": "string"}
+        }
+    },
+    "id": "https://github.com/bspies/ainur/config.schema.json",
+    "properties": {
+        "features": {
+            "id": "/properties/features",
+            "type": "array"
+        },
+        "output": {
+            "id": "/properties/output",
+            "type": "object",
+            "properties": {
+                "bundles": {
+                    "id": "/properties/output/properties/bundles",
+                    "type": "object"
+                },
+                "html": {
+                    "id": "/properties/output/properties/html",
+                    "type": "array"
+                }
+            }
+        },
+        "source": {
+            "id": "/properties/source",
+            "type": "object",
+            "properties": {
+                "excludes" : {
+                    "id": "/properties/source/properties/excludes",
+                    "oneOf":[
+                        { "type": "string" },
+                        { "$ref": "#/definitions/arrayOfStr"}
+                    ]
+                },
+                "level": {
+                    "id": "/properties/source/properties/level",
+                    "type": "string"
+                },
+                "lint": {
+                    "id": "/properties/source/properties/lint",
+                    "type": "boolean"
+                },
+                "maps": {
+                    "id": "/properties/source/properties/maps",
+                    "type": "string"
+                }
+            }
+        },
+        "targets": {
+            "id": "/properties/targets",
+            "type": "object",
+            "oneOf":[
+                {
+                    "properties": {
+                        "browsers": {
+                            "type": "array"
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "node": {
+                            "type": "string"
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

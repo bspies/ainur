@@ -1,0 +1,9 @@
+ul li {
+  cursor: pointer;
+  user-select: none;
+}
+
+/* zebra-stripes */
+ul li:nth-child(odd):not(.done) {
+    background: #f9f9f9;
+}
