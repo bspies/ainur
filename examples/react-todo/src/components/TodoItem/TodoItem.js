@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {ListGroupItem} from 'reactstrap';
+import EventBus from 'eventbusjs';
+import events from '../../events';
 import './TodoItem.css';
 
 const CHECK = '\u2713';
@@ -12,6 +14,7 @@ const CLOSE = '\u00D7';
 export default class TodoItem extends Component {
 
     static propTypes = {
+        id: PropTypes.number.isRequired,
         text: PropTypes.string.isRequired,
         done: PropTypes.bool,
         onClose: PropTypes.func,
@@ -27,20 +30,16 @@ export default class TodoItem extends Component {
      */
     closeHandler = (evt) => {
       evt.stopPropagation();
-      const {onClose} = this.props;
-      if (onClose) {
-        onClose();
-      }
+      const {id} = this.props;
+      EventBus.dispatch(events.todoRemoved, this, id);
     }
 
     /**
      * Event handler for selecting the To Do item.
      */
     clickHandler = (evt) => {
-      const {onSelect} = this.props;
-      if (onSelect) {
-        onSelect();
-      }
+      const {id} = this.props;
+      EventBus.dispatch(events.todoToggleDone, this, id);
     }
 
     /**

@@ -105,8 +105,19 @@ export default class ConfigBuilder {
   }
 
   /**
-   * Adds an output bundle and the input sources for that
-   * bundle.
+   * Splits all project dependencies into a separate output bundle.
+   * @param {string} [bundleName ='vendor'] - The bundle file name
+   */
+  splitDependencies(bundleName = 'vendor') {
+    this.config.output.dependencies = bundleName;
+    return this;
+  }
+
+  /**
+   * Adds an output bundle and the input sources for that bundle.
+   * Note: Do not use this method for specifying a separate dependency
+   * bundle (i.e. for dependencies in `node_modules`). Use `splitDependencies`
+   * instead. 
    * @param {string} bundleName - The bundle name
    * @param {...string} sources - The bundle input source(s)
    * @returns {ConfigBuilder} - The 'this' to chain builder methods

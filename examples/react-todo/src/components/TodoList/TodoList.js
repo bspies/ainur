@@ -11,23 +11,18 @@ export default class TodoList extends Component {
       id: PropTypes.number,
       text: PropTypes.string,
       done: PropTypes.bool
-    })).isRequired,
-    removeItem: PropTypes.func,
-    toggleDone: PropTypes.func
+    })).isRequired
   }
 
   renderItems() {
-    const {removeItem, toggleDone, todos} = this.props;
+    const {todos} = this.props;
     return todos.map(todo => {
-      const closeItem = () => removeItem(todo.id);
-      const selectItem = () => toggleDone(todo.id);
       return (
         <TodoItem
+          id={todo.id}
           key={`item_${todo.id}`}
           text={todo.text}
           done={todo.done}
-          onClose={closeItem}
-          onSelect={selectItem}
         />
       );
     });

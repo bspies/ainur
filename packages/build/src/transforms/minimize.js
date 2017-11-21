@@ -16,6 +16,6 @@ export const predicate = config => config.minimize;
  */
 export default function apply(builderConfig, webpackConfig) {
   webpackConfig.plugins.push(new UglifyJSPlugin({
-    sourceMaps: !!get(builderConfig, paths.sourceMaps)
+    sourceMap: !!get(builderConfig, paths.sourceMaps)
   }));
 }

@@ -1,10 +1,10 @@
 import { Validator } from 'jsonschema';
+import init from './core';
 import getTransforms from './transforms';
 import { configSchema } from './schema';
 
 /**
  * Runs a series of transforms to build up the webpack configuration.
- * 
  * @param {Object} builderConfig - The builder configuration 
  * @param {Object} webpackConfig - The webpack configuration to be built up
  */
@@ -27,20 +27,12 @@ function validate(builderConfig) {
 /**
  * Transforms the build configuration into a webpack
  * configuration.
- * 
  * @param {Object} builderConfig - The builder configuration
  * @returns {Object} - The webpack configuration
  */
 export default function transformConfig(builderConfig) {
   validate(builderConfig);
-  const webpackConfig = {
-    entry: Object.assign({}, builderConfig.output.bundles),
-    output: {
-      path: builderConfig.output.dir,
-      filename: '[name].js'
-    },
-    plugins: []
-  };
+  const webpackConfig = init(builderConfig);
   runTransforms(builderConfig, webpackConfig);
   return webpackConfig;
 }

@@ -14,3 +14,7 @@ node_modules/
 
 # Output of 'npm pack'
 *.tgz
+
+# IDE files
+.vscode
+launch.json

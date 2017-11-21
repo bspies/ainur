@@ -22,9 +22,12 @@ export function getTypeScriptLoader(options) {
 
 /**
  * Returns the CSS file loader configuration.
- * @param {Object} [options] - The CSS loader options
+ * @param {Object} [opts] - The CSS loader options
  */
-export function getCssLoader(options) {
+export function getCssLoader(opts) {
+  const options = Object.assign({
+    sourceMap: false
+  }, opts);
   return {
     loader: 'css-loader',
     options
@@ -33,9 +36,12 @@ export function getCssLoader(options) {
 
 /**
  * Returns the SASS file loader configuration.
- * @param {Object} [options] - The SASS loader options
+ * @param {Object} [opts] - The SASS loader options
  */
-export function getSassLoader(options) {
+export function getSassLoader(opts) {
+  const options = Object.assign({
+    sourceMap: false
+  }, opts);
   return {
     loader: 'sass-loader',
     options

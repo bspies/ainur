@@ -6,7 +6,7 @@ export default {
   excludes: 'source.excludes',
   lint: 'source.lint',
   sourceLevel: 'source.level',
-  sourceMaps: 'source.maps',
+  sourceMaps: 'dev.sourcemap',
   nodeTarget: 'targets.node',
   browserTargets: 'targets.browsers',
   htmlOutput: 'output.html',

@@ -42,7 +42,7 @@ export default class DevServerBuilder extends ConfigBuilder {
   rebuildOnChange(enable = true) {
     this.config.rebuildOnChange = enable;
   }
-
+ 
   /**
    * Starts the local development server.
    * @param {Object} options - The server options

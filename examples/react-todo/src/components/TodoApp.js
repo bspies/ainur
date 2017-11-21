@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import {Container, Row, Col} from 'reactstrap';
+import EventBus from 'eventbusjs';
 import find from 'lodash.find';
 import last from 'lodash.last';
 import remove from 'lodash.remove';
 import TodoHeader from './TodoHeader';
 import TodoList from './TodoList';
+import events from '../events';
 import './TodoApp.css';
 
 /**
@@ -25,13 +27,16 @@ export default class TodoApp extends Component {
     this.state = {
       todos: []
     }
+    this.listenEvents();
   }
 
   /**
    * Callback to add a To Do item.
+   * @param {Object} evt - The event object
    * @param {string} todo - The text of the To Do item
    */
-  addTodo = (todo) => {
+  addTodo = (evt, todo) => {
+    console.log('add todo: ', evt, 'text', todo);
     const {todos} = this.state;
     this.setState({
       todos: todos.concat({
@@ -44,8 +49,10 @@ export default class TodoApp extends Component {
 
   /**
    * Callback to remove a To Do item.
+   * @param {Object} evt - The event object
+   * @param {number} id - The To Do id
    */
-  removeTodo = (id) => {
+  removeTodo = (evt, id) => {
     const newTodos = this.state.todos.concat();
     remove(newTodos, (val) => val.id === id);
     this.setState({
@@ -54,15 +61,26 @@ export default class TodoApp extends Component {
   }
 
   /*
-   * Toggles the "done" state for a To Do item.
+   * Callback to toggle the "done" state for a To Do item.
+   * @param {Object} evt - The event object
+   * @param {number} id - The To Do id
    */
-  toggleDone = (id) => {
+  toggleDone = (evt, id) => {
     const newTodos = this.state.todos.concat();
     const todoItem = find(newTodos, td => td.id === id);
     todoItem.done = !todoItem.done;
     this.setState({
       todos: newTodos
     });
+  }
+
+  /**
+   * Register listener for child events.
+   */
+  listenEvents() {
+    EventBus.addEventListener(events.todoAdded, this.addTodo);
+    EventBus.addEventListener(events.todoRemoved, this.removeTodo);
+    EventBus.addEventListener(events.todoToggleDone, this.toggleDone);
   }
 
   render() {
@@ -81,7 +99,7 @@ export default class TodoApp extends Component {
         </Row>
         <Row>
           <Col>
-            <TodoList todos={this.state.todos} removeItem={this.removeTodo} toggleDone={this.toggleDone}/>
+            <TodoList todos={this.state.todos}/>
           </Col>
         </Row>
       </Container>

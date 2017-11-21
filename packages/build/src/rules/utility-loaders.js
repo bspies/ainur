@@ -16,15 +16,46 @@ export function getJsLintLoader(opts) {
 }
 
 /**
+ * Returns the TSLint loader configuration for adding
+ * linting to TypeScript files.
+ * @param {Object} opts - The tslint loader options 
+ */
+export function getTsLintLoader(opts) {
+  return {
+    loader: 'tslint-loader',
+    enforce: 'pre',
+    opts
+  };
+}
+
+/**
+ * Returns the loader that loads styles into the DOM by
+ * inserting a `<style>` element.
+ * @param {*} opts - The loader options 
+ */
+export function getStyleLoader(opts) {
+  const options = Object.assign({
+    hmr: false,
+    sourceMap: false
+  }, opts);
+  return {
+    loader: 'style-loader',
+    options
+  };
+}
+
+/**
  * Loaders by id.
  * @type {Object}
  */
 const loadersById = {
-  'lint-js': getJsLintLoader
+  'lint-js': getJsLintLoader,
+  'lint-ts': getTsLintLoader,
+  style: getStyleLoader,
 };
 
 /**
- * 
+ * Returns the loader by its id.
  * @param {string} id - The loader id
  */
 export function getUtilityLoaderById(id) {

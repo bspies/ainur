@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Input, InputGroup, InputGroupButton } from 'reactstrap';
+import EventBus from 'eventbusjs';
+import events from '../../events';
 import './TodoHeader.css';
 
+/**
+ * The To Do application header with input to create new
+ * items.
+ */
 export default class TodoHeader extends Component {
-    /**
-     * @type {Object}
-     * @property {function(todo:string)} addTodo - The callback function
-     */
-    static propTypes = {
-        addTodo: PropTypes.func.isRequired
-    }
 
     constructor(props) {
       super(props);
@@ -19,23 +17,31 @@ export default class TodoHeader extends Component {
       }
     }
 
+    /**
+     * Callback to handle input change.
+     */
     updateInputValue = (evt) => {
       this.setState({
         inputValue: evt.target.value
       });
     }
 
+    /**
+     * Handler to enter input on "Enter" key.
+     */
     handleKey = (evt) => {
       if (evt.keyCode === 13) {
         this.handleEntry();
       }
     }
 
+    /**
+     * Handles input entry.
+     */
     handleEntry = () => {
-        const {addTodo} = this.props;
         const {inputValue} = this.state;
         if (inputValue.length > 0) {
-          addTodo(inputValue);
+          EventBus.dispatch(events.todoAdded, this, inputValue);
           // clear value
           this.setState({
             inputValue: ''
