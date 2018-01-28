@@ -25,6 +25,6 @@
     "reactstrap": "^5.0.0-alpha.3"
   },
   "devDependencies": {
-    "ainur-build": "^0.1.0"
+    "@ainur/build": "^0.1.0"
   }
 }

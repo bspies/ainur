@@ -1,5 +1,5 @@
 {
-  "name": "ainur-project",
+  "name": "@ainur/project",
   "version": "0.1.0",
   "description": "Project builder",
   "main": "index.js",
