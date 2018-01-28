@@ -17,4 +17,6 @@ node_modules/
 
 # IDE files
 .vscode
+*.iml
+.idea
 launch.json
