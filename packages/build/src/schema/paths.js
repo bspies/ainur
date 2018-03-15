@@ -1,7 +1,7 @@
 /**
  * Object paths in the builder configuration.
  */
-export default {
+module.exports = {
   bundles: 'output.bundles',
   excludes: 'source.excludes',
   lint: 'source.lint',

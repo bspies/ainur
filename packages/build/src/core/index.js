@@ -1,3 +1,3 @@
-import initialize from './initialize';
+const initialize = require('./initialize');
 
-export default initialize;
+module.exports = initialize;

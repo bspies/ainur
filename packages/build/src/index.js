@@ -1,7 +1,9 @@
-import DevServerBuilder from './DevServerBuilder';
-import DistributionBuilder from './DistributionBuilder';
+const ConfigBuilder = require('./ConfigBuilder');
+const DevServerBuilder = require('./DevServerBuilder');
+const DistributionBuilder = require('./DistributionBuilder');
 
-export default {
+module.exports = {
+  ConfigBuilder,
   DevServerBuilder,
   DistributionBuilder
 };

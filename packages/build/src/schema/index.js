@@ -4,10 +4,10 @@
  * for accessing/setting paths within the builder configuration
  * object.
  */
-import configSchema from './config.schema.json';
-import paths from './paths';
+const configSchema = require('./config.schema.json');
+const paths = require('./paths');
 
-export default {
+module.exports = {
   configSchema,
   paths
 };

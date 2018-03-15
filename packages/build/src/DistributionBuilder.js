@@ -1,6 +1,6 @@
-import webpack from 'webpack';
-import { merge } from 'lodash';
-import ConfigBuilder from './ConfigBuilder';
+const webpack = require('webpack');
+const merge = require('lodash.merge');
+const ConfigBuilder = require('./ConfigBuilder');
 
 const configDefaults = {
   minimize: false
@@ -10,7 +10,7 @@ const configDefaults = {
  * Builder for creating a distribution. This is the class you want
  * to use when creating a build for distribution.
  */
-export default class DistributionBuilder extends ConfigBuilder {
+class DistributionBuilder extends ConfigBuilder {
   /**
    * Creates the distribution builder.
    * @param {Object} [config={}] - The initial configuration values
@@ -32,7 +32,7 @@ export default class DistributionBuilder extends ConfigBuilder {
   /**
    * Specifies that the output should be minified.
    * @param {boolean} [use=true] - If true, turns on minification
-   * @returns {DistributionBuilder} - The 'this' to chain builder methods 
+   * @returns {DistributionBuilder} - The 'this' to chain builder methods
    */
   minimize(use = true) {
     this.config.minimize = use;
@@ -49,3 +49,5 @@ export default class DistributionBuilder extends ConfigBuilder {
     compiler.run(callback);
   }
 }
+
+module.exports = DistributionBuilder;

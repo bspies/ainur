@@ -1,25 +1,25 @@
-import { set } from 'lodash';
-import { append } from './util';
-import { paths } from './schema';
-import transformConfig from './transform-config';
+const set = require('lodash.set');
+const { append } = require('./util');
+const { paths } = require('./schema');
+const transformConfig = require('./transform-config');
 
 /**
- * This is the base configuration builder, which is extended by 
+ * This is the base configuration builder, which is extended by
  * {@link DevServerBuilder} and {@link DistributionBuilder}. It may
  * also be used in a standalone mode in order to build common
  * configuration. For example:
  * @example
  * ```javascript
  * const commonConfig = new ConfigBuilder()
- *      .targets( ... );   
+ *      .targets( ... );
  *      // invoke additional builder methods
- * 
+ *
  * // production build
  * DistributionBuilder
  *      .extends(commonConfig)
  *      .minimize()
  *      .build();
- * 
+ *
  * // start development server
  * DevServerBuilder
  *      .extends(commonConfig)
@@ -28,10 +28,10 @@ import transformConfig from './transform-config';
  *      });
  * ```
  */
-export default class ConfigBuilder {
+class ConfigBuilder {
   /**
    * Creates the configuration builder.
-   * @param {Object} [config={}] - The initial configuration values 
+   * @param {Object} [config={}] - The initial configuration values
    */
   constructor(config = {}) {
     this.config = config;
@@ -60,8 +60,8 @@ export default class ConfigBuilder {
   /**
    * Excludes sources that are matched by the given regular expression
    * @param {RegExp} regex - The regular expression that matches source paths to exclude
-   * @returns {ConfigBuilder} - The 'this' to chain builder methods 
-   */ 
+   * @returns {ConfigBuilder} - The 'this' to chain builder methods
+   */
   excludes(regex) {
     append(this.config, paths.excludes, regex);
     return this;
@@ -70,9 +70,9 @@ export default class ConfigBuilder {
   /**
    * Sets target browser environments for the build. If no targets are set,
    * the default compilation output will be EcmaScript 5.1. Syntax supported
-   * for browser versions is the same as that used by the `babel-env-preset`. If 'node' 
-   * is specified the target will be set to the current version of Node JS. 
-   * @param {string|Array<string>} targets - The array or string of target browser environments, 
+   * for browser versions is the same as that used by the `babel-env-preset`. If 'node'
+   * is specified the target will be set to the current version of Node JS.
+   * @param {string|Array<string>} targets - The array or string of target browser environments,
    * or 'node'
    * @returns {ConfigBuilder} - The 'this' to chain builder methods
    */
@@ -117,7 +117,7 @@ export default class ConfigBuilder {
    * Adds an output bundle and the input sources for that bundle.
    * Note: Do not use this method for specifying a separate dependency
    * bundle (i.e. for dependencies in `node_modules`). Use `splitDependencies`
-   * instead. 
+   * instead.
    * @param {string} bundleName - The bundle name
    * @param {...string} sources - The bundle input source(s)
    * @returns {ConfigBuilder} - The 'this' to chain builder methods
@@ -129,12 +129,12 @@ export default class ConfigBuilder {
 
   /**
    * Adds an HTML output file to the build, using a template.
-   * @param {string} template - The HTML template name or file path 
-   * @param {Object} variables - The variables to use for the template 
-   * @param {string} filename - The output file name
-   * @returns {ConfigBuilder} - The 'this' to chain builder methods 
+   * @param {string} template - The HTML template name or file path
+   * @param {Object} [variables={}] - The variables to use for the template
+   * @param {string} [filename='index.html'] - The output file name
+   * @returns {ConfigBuilder} - The 'this' to chain builder methods
    */
-  withHtml(template, variables, filename = 'index.html') {
+  withHtml(template, variables = {}, filename = 'index.html') {
     set(this.config, paths.htmlOutput,
       {
         template,
@@ -144,10 +144,10 @@ export default class ConfigBuilder {
     return this;
   }
 
-  /**  
+  /**
    * Specifies the target output directory of the build.
    * @param {string} outputDir - The build output directory
-   * @returns {ConfigBuilder} - The 'this' to chain builder methods 
+   * @returns {ConfigBuilder} - The 'this' to chain builder methods
    */
   outputDir(outputDir) {
     set(this.config, paths.output, outputDir);
@@ -157,7 +157,7 @@ export default class ConfigBuilder {
   /**
    * Specifies the method for building JavaScript source maps.
    * @param {string|function():string} method - The source map method, or a function that returns it
-   * @returns {ConfigBuilder} - The 'this' to chain builder methods 
+   * @returns {ConfigBuilder} - The 'this' to chain builder methods
    */
   sourceMaps(method) {
     set(this.config, paths.sourceMaps, method);
@@ -166,7 +166,7 @@ export default class ConfigBuilder {
 
   /**
    * Adds source code linting to the build.
-   * @param {boolean} enable 
+   * @param {boolean} enable
    */
   lint(enable = true) {
     set(this.config, paths.lint, enable);
@@ -181,3 +181,5 @@ export default class ConfigBuilder {
     return transformConfig(this.config);
   }
 }
+
+module.exports = ConfigBuilder;

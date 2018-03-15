@@ -3,7 +3,7 @@
  * linting to JavaScript files.
  * @param {Object} opts - The eslint loader options
  */
-export function getJsLintLoader(opts) {
+function getJsLintLoader(opts) {
   // override defaults
   const options = Object.assign({
     emitWarning: true,
@@ -18,9 +18,9 @@ export function getJsLintLoader(opts) {
 /**
  * Returns the TSLint loader configuration for adding
  * linting to TypeScript files.
- * @param {Object} opts - The tslint loader options 
+ * @param {Object} opts - The tslint loader options
  */
-export function getTsLintLoader(opts) {
+function getTsLintLoader(opts) {
   return {
     loader: 'tslint-loader',
     enforce: 'pre',
@@ -31,9 +31,9 @@ export function getTsLintLoader(opts) {
 /**
  * Returns the loader that loads styles into the DOM by
  * inserting a `<style>` element.
- * @param {*} opts - The loader options 
+ * @param {*} opts - The loader options
  */
-export function getStyleLoader(opts) {
+function getStyleLoader(opts) {
   const options = Object.assign({
     hmr: false,
     sourceMap: false
@@ -58,7 +58,7 @@ const loadersById = {
  * Returns the loader by its id.
  * @param {string} id - The loader id
  */
-export function getUtilityLoaderById(id) {
+function getUtilityLoaderById(id) {
   const loaderConfig = loadersById[id];
   if (!loaderConfig) {
     throw new Error(`No such loader: id '${id}'`);
@@ -66,7 +66,9 @@ export function getUtilityLoaderById(id) {
   return loaderConfig;
 }
 
-/**
- * Exports utility loaders by their ids.
- */
-export default loadersById;
+module.exports = {
+  getStyleLoader,
+  getJsLintLoader,
+  getTsLintLoader,
+  getUtilityLoaderById
+};

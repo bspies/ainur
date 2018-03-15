@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
-import { merge } from 'lodash';
-import webpack from 'webpack';
-import DevServer from 'webpack-dev-server';
-import ConfigBuilder from './ConfigBuilder';
+const merge = require('lodash.merge');
+const webpack = require('webpack');
+const DevServer = require('webpack-dev-server');
+const ConfigBuilder = require('./ConfigBuilder');
 
 /**
  * The configuration defaults for the development server build.
@@ -14,7 +14,7 @@ const configDefaults = {
 /**
  * Builder for creating a development server.
  */
-export default class DevServerBuilder extends ConfigBuilder {
+class DevServerBuilder extends ConfigBuilder {
   /**
    * Creates a development server builder.
    * @param {Object} [config={}] - The initial configuration values
@@ -42,7 +42,7 @@ export default class DevServerBuilder extends ConfigBuilder {
   rebuildOnChange(enable = true) {
     this.config.rebuildOnChange = enable;
   }
- 
+
   /**
    * Starts the local development server.
    * @param {Object} options - The server options
@@ -65,3 +65,5 @@ export default class DevServerBuilder extends ConfigBuilder {
     });
   }
 }
+
+module.exports = DevServerBuilder;

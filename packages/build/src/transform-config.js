@@ -1,11 +1,11 @@
-import { Validator } from 'jsonschema';
-import init from './core';
-import getTransforms from './transforms';
-import { configSchema } from './schema';
+const { Validator } = require('jsonschema');
+const init = require('./core');
+const getTransforms = require('./transforms');
+const { configSchema } = require('./schema');
 
 /**
  * Runs a series of transforms to build up the webpack configuration.
- * @param {Object} builderConfig - The builder configuration 
+ * @param {Object} builderConfig - The builder configuration
  * @param {Object} webpackConfig - The webpack configuration to be built up
  */
 function runTransforms(builderConfig, webpackConfig) {
@@ -30,9 +30,11 @@ function validate(builderConfig) {
  * @param {Object} builderConfig - The builder configuration
  * @returns {Object} - The webpack configuration
  */
-export default function transformConfig(builderConfig) {
+function transformConfig(builderConfig) {
   validate(builderConfig);
   const webpackConfig = init(builderConfig);
   runTransforms(builderConfig, webpackConfig);
   return webpackConfig;
 }
+
+module.exports = transformConfig;

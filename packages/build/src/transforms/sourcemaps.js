@@ -1,15 +1,19 @@
-/**
- * Predicate to filter use of this transform.
- * @param {Object} config - The builder configuration
- * @returns {boolean} - True if source maps are configured
- */
-export const predicate = config => !!config.source.maps;
+const get = require('lodash.get');
+const paths = require('../schema/paths');
 
-/**
- * 
- * @param {Object} builderConfig - The builder configuration
- * @param {Object} webpackConfig - The webpack configuration
- */
-export function apply(builderConfig, webpackConfig) {
-    
-}
+module.exports = {
+  /**
+   * Predicate to filter use of this transform.
+   * @param {Object} config - The builder configuration
+   * @returns {boolean} - True if source maps are configured
+   */
+  predicate: config => !!get(config, paths.sourceMaps),
+  /**
+   * Sets the source map method on the build.
+   * @param {Object} builderConfig - The builder configuration
+   * @param {Object} webpackConfig - The webpack configuration
+   */
+  apply: (builderConfig, webpackConfig) => {
+    Object.assign(webpackConfig, { devtool: get(builderConfig, paths.sourceMaps) });
+  }
+};

@@ -1,21 +1,22 @@
-import _ from 'lodash';
-import paths from '../schema/paths';
-import {
+const get = require('lodash.get');
+const { matchers } = require('./matchers');
+const paths = require('../schema/paths');
+const {
   getJsLintLoader,
   getTsLintLoader,
   getStyleLoader
-} from './utility-loaders';
-import {
+} = require('./utility-loaders');
+const {
   getBabelLoader,
   getTypeScriptLoader,
   getCssLoader,
   getSassLoader,
   getLessLoader
-} from './file-loaders';
+} = require('./file-loaders');
 
 /**
  * Creates the configuration rule.
- * @param {Object} matcher - The file matching pattern 
+ * @param {Object} matcher - The file matching pattern
  * @param {...Object} loaders - The loaders to use for the rule
  */
 function getRule(matcher, ...loaders) {
@@ -38,52 +39,60 @@ function getBaseStyleLoaders(builderConfig) {
  * Creates the JavaScript rule using the configuration.
  * @param {Object} builderConfig - The builder configuration
  */
-export function getJavaScriptRule(builderConfig) {
+function getJavaScriptRule(builderConfig) {
   const babelOpts = {};
   const loaders = [getBabelLoader(babelOpts)];
-  if (!_.get(builderConfig, paths.lint)) {
+  if (!get(builderConfig, paths.lint)) {
     loaders.push(getJsLintLoader());
   }
-  return getRule(/\.js$/, ...loaders);
+  return getRule(matchers.JAVASCRIPT, ...loaders);
 }
 
 /**
  * Creates the TypeScript rule using the configuration.
  * @param {Object} builderConfig - The builder configuration
  */
-export function getTypeScriptRule(builderConfig) {
+function getTypeScriptRule(builderConfig) {
   const tsOpts = {};
   const loaders = [getTypeScriptLoader(tsOpts)];
-  if (!_.get(builderConfig, paths.lint)) {
+  if (!get(builderConfig, paths.lint)) {
     loaders.push(getTsLintLoader());
   }
-  return getRule(/\.ts$/, ...loaders);
+  return getRule(matchers.TYPESCRIPT, ...loaders);
 }
 
 /**
  * Creates the CSS rule using the configuration.
  * @param {Object} builderConfig - The builder configuration
  */
-export function getCssRule(builderConfig) {
+function getCssRule(builderConfig) {
   const loaders = getBaseStyleLoaders(builderConfig);
-  return getRule(/\.css$/, ...loaders);
+  return getRule(matchers.CSS, ...loaders);
 }
 
 /**
  * Creates the CSS rule using the configuration.
- * @param {Object} builderConfig - The builder configuration 
+ * @param {Object} builderConfig - The builder configuration
  */
-export function getSassRule(builderConfig) {
+function getSassRule(builderConfig) {
   const sassOpts = {};
   const loaders = getBaseStyleLoaders(builderConfig).concat(getSassLoader(sassOpts));
-  return getRule(/\.scss$/, ...loaders);
+  return getRule(matchers.SASS, ...loaders);
 }
 
 /**
  * Creates LESS rule using the configuration.
  * @param {Object} builderConfig - The builder configuration
  */
-export function getLessRule(builderConfig) {
+function getLessRule(builderConfig) {
   const loaders = getBaseStyleLoaders(builderConfig).concat(getLessLoader());
-  return getRule(/\.less$/, ...loaders);
+  return getRule(matchers.LESS, ...loaders);
 }
+
+module.exports = {
+  getJavaScriptRule,
+  getTypeScriptRule,
+  getCssRule,
+  getSassRule,
+  getLessRule
+};
