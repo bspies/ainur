@@ -47,7 +47,7 @@ function prependLoader(webpackConfig, matcher, loaderConfig) {
   }
 }
 
-export default {
+module.exports = {
   ...fileLoaders,
   ...utilityLoaders,
   ...rules,

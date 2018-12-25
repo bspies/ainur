@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const ConfigBuilder = require('../src/ConfigBuilder');
-const { findPlugin } = require('./test-utils');
+const { findPlugin } = require('./util/test-utils');
 
 describe('ConfigBuilder', () => {
   it('can configure basic input-output', () => {
